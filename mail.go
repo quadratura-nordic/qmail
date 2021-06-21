@@ -129,7 +129,9 @@ func (m *Message) bytes() ([]byte, error) {
 	}
 
 	buf.WriteString("Content-Type: text/html; charset=utf-8\n")
-	buf.ReadFrom(m.Body)
+	if m.Body != nil {
+		buf.ReadFrom(m.Body)
+	}
 
 	if len(m.attachments) > 0 || len(m.inlines) > 0 {
 		for k, v := range m.attachments {
